@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Inserter",
+  "version": "1.0",
+  "description": "Insert cookies in JSON format.",
+  "permissions": [
+    "cookies",
+    "activeTab"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+
+    }
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
