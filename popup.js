@@ -35,3 +35,18 @@ document.getElementById('insertCookies').addEventListener('click', function() {
 
     document.getElementById('status').textContent = 'Cookies inserted successfully.';
 });
+
+// Add this code to handle exporting cookies
+document.getElementById('exportCookies').addEventListener('click', function() {
+    chrome.cookies.getAll({}, function(cookies) {
+        const cookieJson = JSON.stringify(cookies, null, 2);
+        const blob = new Blob([cookieJson], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cookies.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById('status').textContent = 'Cookies exported successfully.';
+    });
+});
