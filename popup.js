@@ -36,7 +36,6 @@ document.getElementById('insertCookies').addEventListener('click', function() {
     document.getElementById('status').textContent = 'Cookies inserted successfully.';
 });
 
-// Add this code to handle exporting cookies
 document.getElementById('exportCookies').addEventListener('click', function() {
     chrome.cookies.getAll({}, function(cookies) {
         const cookieJson = JSON.stringify(cookies, null, 2);
@@ -48,5 +47,24 @@ document.getElementById('exportCookies').addEventListener('click', function() {
         a.click();
         URL.revokeObjectURL(url);
         document.getElementById('status').textContent = 'Cookies exported successfully.';
+    });
+});
+
+document.getElementById('deleteCookies').addEventListener('click', function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        const tab = tabs[0];
+        const url = new URL(tab.url);
+        chrome.cookies.getAll({ domain: url.hostname }, function(cookies) {
+            cookies.forEach(cookie => {
+                chrome.cookies.remove({ url: `https://${cookie.domain}${cookie.path}`, name: cookie.name }, function(details) {
+                    if (chrome.runtime.lastError) {
+                        console.error('Error deleting cookie:', chrome.runtime.lastError);
+                    } else {
+                        console.log('Cookie deleted:', details);
+                    }
+                });
+            });
+            document.getElementById('status').textContent = 'Cookies deleted successfully.';
+        });
     });
 });
