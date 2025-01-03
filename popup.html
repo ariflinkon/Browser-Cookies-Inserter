@@ -5,9 +5,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { font-family: Arial, sans-serif; width: 300px; margin: 20px auto; }
+        header, footer { text-align: center; margin-bottom: 20px; }
+        footer { font-size: 0.8em; color: #777; }
     </style>
 </head>
 <body>
+    <header>
+        <h2>Cookie Manager</h2>
+    </header>
     <h3 class="text-center">Manage Cookies</h3>
     <div class="form-group">
         <textarea id="cookieInput" class="form-control" placeholder='Enter cookies as JSON'></textarea>
@@ -15,6 +20,9 @@
     <button id="insertCookies" class="btn btn-primary btn-block">Insert Cookies</button>
     <button id="deleteCookies" class="btn btn-danger btn-block">Delete Cookies</button>
     <div id="status" class="mt-3"></div>
+    <footer>
+        <p>Powered by Browser-Cookies-Inserter</p>
+    </footer>
     <script src="popup.js"></script>
 </body>
 </html>
