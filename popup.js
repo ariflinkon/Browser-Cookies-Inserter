@@ -1,4 +1,4 @@
-document.getElementById('insertCookies').addEventListener('click', function() {
+function insertCookies() {
     const cookieInput = document.getElementById('cookieInput').value;
     let cookies;
     try {
@@ -34,9 +34,9 @@ document.getElementById('insertCookies').addEventListener('click', function() {
     });
 
     document.getElementById('status').textContent = 'Cookies inserted successfully.';
-});
+}
 
-document.getElementById('exportCookies').addEventListener('click', function() {
+function exportCookies() {
     chrome.cookies.getAll({}, function(cookies) {
         const cookieJson = JSON.stringify(cookies, null, 2);
         const blob = new Blob([cookieJson], { type: 'application/json' });
@@ -48,9 +48,9 @@ document.getElementById('exportCookies').addEventListener('click', function() {
         URL.revokeObjectURL(url);
         document.getElementById('status').textContent = 'Cookies exported successfully.';
     });
-});
+}
 
-document.getElementById('deleteCookies').addEventListener('click', function() {
+function deleteCookies() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         const tab = tabs[0];
         const url = new URL(tab.url);
@@ -67,4 +67,8 @@ document.getElementById('deleteCookies').addEventListener('click', function() {
             document.getElementById('status').textContent = 'Cookies deleted successfully.';
         });
     });
-});
+}
+
+document.getElementById('insertCookies').addEventListener('click', insertCookies);
+document.getElementById('exportCookies').addEventListener('click', exportCookies);
+document.getElementById('deleteCookies').addEventListener('click', deleteCookies);
